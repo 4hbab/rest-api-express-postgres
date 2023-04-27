@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION trigger_set_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.date_modified = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TABLE blog (
+  id SERIAL NOT NULL PRIMARY KEY,
+  title TEXT,
+  content TEXT,
+  date_created TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  date_modified TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON blog
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+INSERT INTO blog(title,content) values('Test', 'This is a test');
