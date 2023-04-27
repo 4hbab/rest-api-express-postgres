@@ -16,11 +16,10 @@ This is a CRUD API that follows the REST structure.
   POST /api/blogs
 ```
 
-#### Post all items
-
-```http
-  GET /api/blogs
-```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `title`   | `string` | **Required**. Title of new blog   |
+| `content` | `string` | **Required**. Content of new blog |
 
 #### Get blog by id
 
